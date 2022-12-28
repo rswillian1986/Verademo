@@ -36,5 +36,5 @@ jobs:
           path: .
       - name: list artifact
         run: |
-          ls -l 
+          ls -l
 
