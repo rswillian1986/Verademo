@@ -34,7 +34,7 @@ jobs:
         with:
           name: verademo.war
           path: .
-    - name: Veracode Policy Scan
+      - name: Veracode Policy Scan
         uses: veracode/veracode-uploadandscan-action@0.2.4
         with:
           appname: 'Java-VeraDemo'
