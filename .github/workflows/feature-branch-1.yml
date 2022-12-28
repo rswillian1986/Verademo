@@ -1,8 +1,8 @@
 name: feature branch workflow
 
 on:
-  push:
-    braches: [feature-branch-1]
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   build:
