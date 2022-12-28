@@ -60,7 +60,7 @@ jobs:
           name: Standard Pipeline Scan results
           path: results.json
 
-Veracode-Software-Composition-Analisys:
+  Veracode_Software_Composition_Analisys:
     runs-on: ubuntu-latest
     name: Veracode SCA Scan
     steps:
