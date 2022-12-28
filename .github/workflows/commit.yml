@@ -65,7 +65,8 @@ Veracode-Software-Composition-Analisys:
     name: Veracode SCA Scan
     steps:
       - name: Checkout
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
+      - name: Run SCA Scan
         env:
           SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
         run: |
