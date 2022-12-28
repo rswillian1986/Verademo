@@ -63,6 +63,7 @@ jobs:
   Veracode-Software-Composition-Analisys:
     runs-on: ubuntu-latest
     name: Veracode SCA scan
+    needs: [build]
     steps:
     - name: Checkout
     - uses: actions/checkout@v3
