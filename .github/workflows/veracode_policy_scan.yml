@@ -34,7 +34,14 @@ jobs:
         with:
           name: verademo.war
           path: .
-      - name: list artifact
-        run: |
-          ls -l
+    - name: Veracode Policy Scan
+        uses: veracode/veracode-uploadandscan-action@0.2.4
+        with:
+          appname: 'Java-VeraDemo'
+          createprofile: false
+          filepath: 'target/verademo.war'
+          vid: '${{ secrets.VID }}'
+          vkey: '${{ secrets.VKEY }}'
+          deleteincompletescan: 2
+          scantimeout: 15
 
