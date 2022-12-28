@@ -1,6 +1,6 @@
 on:
   push:
-    braches: [main]
+    branches: [main]
 
 jobs:
   build:
