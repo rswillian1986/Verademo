@@ -78,7 +78,7 @@ jobs:
       - name: PipelineScanStandardResults
         uses: actions/upload-artifact@v3
         with:
-          name: Standard Pipeline Scan results
+          name: PipelineScanStandardResults
           path: results.json
 
   commit-baseline-file:
