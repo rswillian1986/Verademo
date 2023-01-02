@@ -1,6 +1,8 @@
+name: commit workflow
+
 on:
   push:
-    branches: [main]
+    branches: [feature-branch-1]
 
 jobs:
   build:
@@ -23,28 +25,41 @@ jobs:
           name: verademo.war
           path: target/verademo.war
   
-  Veracode_Policy_Scan:
-    name: Veracode Policy Scan
+  Veracode_Pipeline_Scan:
+    name: Veracode Pipeline Scan
     runs-on: ubuntu-latest
     needs: [build]
+    container:
+      image: veracode/pipeline-scan:latest
+      options: --user root
     steps:
       - uses: actions/checkout@v2
       - name: get archive
         uses: actions/download-artifact@v3
         with:
           name: verademo.war
-          path: .
-      - name: Veracode Policy Scan
-        uses: veracode/veracode-uploadandscan-action@0.2.4
+          path: /tmp
+      - name: Veracode Pipeline Scan
+        run: |
+          java -jar /opt/veracode/pipeline-scan.jar \
+              -vid ${{ secrets.VID }}   \
+              -vkey ${{ secrets.VKEY }} \
+              --file /tmp/verademo.war \
+              --fail_on_severity="VeryHigh, High" \
+              -jf results.json \
+              -fjf filtered_results.json
+        continue-on-error: true
+      - name: Save Pipeline Scan filtered results
+        uses: actions/upload-artifact@v3
         with:
-          appname: 'Java-VeraDemo'
-          createprofile: false
-          filepath: 'target/verademo.war'
-          vid: '${{ secrets.VID }}'
-          vkey: '${{ secrets.VKEY }}'
-          deleteincompletescan: 2
-          scantimeout: 15
-          
+          name: filtered_results
+          path: filtered_results.json
+      - name: Save Pipeline Scan standard results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Standard Pipeline Scan results
+          path: results.json
+
   Veracode_Software_Composition_Analisys:
     runs-on: ubuntu-latest
     name: Veracode SCA Scan
@@ -62,3 +77,4 @@ jobs:
           
           export EXTRA_ARGS='--update-advisor --uri-as-name'
           curl -sSL https://download.sourceclear.com/ci.sh | bash -s scan $EXTRA_ARGS
+
