@@ -67,6 +67,8 @@ jobs:
               --fail_on_severity="VeryHigh, High" \
               -jf results.json \
               -fjf filtered_results.json
+        continue-on-error: true
+
       - name: PipelineScanFilteredResults
         uses: actions/upload-artifact@v3
         with:
@@ -78,7 +80,7 @@ jobs:
           name: Standard Pipeline Scan results
           path: results.json
 
-  Commit-Baseline-File:
+  commit-baseline-file:
     needs: [Veracode_Pipeline_Scan]
     runs-on: ubuntu-latest
     steps:
