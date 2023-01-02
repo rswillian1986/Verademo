@@ -44,7 +44,7 @@ jobs:
           filepath: 'target/verademo.war'
           vid: '${{ secrets.VID }}'
           vkey: '${{ secrets.VKEY }}'
-          createsandbox: true
+          createsandbox: false
           sandboxname: '${{ github.ref }}'
           deleteincompletescan: 2
           scantimeout: 15
