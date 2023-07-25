@@ -1,4 +1,13 @@
+name: Veracode Scan
 
+#será executada sempre que houver
+on:
+  push:
+    branches: [ branch-treinamento1 ]
+  pull_request:
+    branches: [ branch-treinamento1 ]
+
+  workflow_dispatch:
 
 jobs:
   build:
@@ -78,27 +87,6 @@ jobs:
         with:
           name: PipelineScanStandardResults
           path: results.json
-
-  commit-baseline-file:
-    needs: [Veracode_Pipeline_Scan]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: get scan results
-        uses: actions/download-artifact@v2
-        with:
-          name: PipelineScanStandardResults
-      - name: commit baseline file to feature branches
-        run: |
-          git config --global user.name "lucasferreiram3"
-          git config --global user.email "lucas.ferreira@m3corp.com.br"
-          git add "results.json"
-          git stash
-          git pull origin feature-branch-1 || echo "Couldn't find remote branch"
-          git checkout stash -- .
-          git commit -m "Veracode Baseline File push from branch"
-          git push origin HEAD:feature-branch-1 --force-with-lease
 
   Veracode_Software_Composition_Analisys:
     runs-on: ubuntu-latest
