@@ -108,8 +108,4 @@ jobs:
           path: .
       - name: Veracode Pipeline Scan
         run: |
-          java -jar /opt/veracode/pipeline-scan.jar \   
-              -vid ${{ secrets.VID }}   \
-              -vkey ${{ secrets.VKEY }} \
-              --file target/verademo.war \
-              --policy_name Veracode Recommended High + SCA
+          java -jar /opt/veracode/pipeline-scan.jar -vid ${{ secrets.VID }} -vkey ${{ secrets.VKEY }} -f target/verademo.war -pn "Veracode Recommended High"
