@@ -70,7 +70,6 @@ jobs:
           format: "table"
           debug: false
           fail_build: true
-
   
   Veracode_Policy_Scan:
     name: Veracode Policy Scan
@@ -113,4 +112,4 @@ jobs:
               -vid ${{ secrets.VID }}   \
               -vkey ${{ secrets.VKEY }} \
               --file /tmp/verademo.war \
-              --policy_name "Veracode Recommended High + SCA"
+              --policy_name Veracode Recommended High + SCA
