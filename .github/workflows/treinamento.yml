@@ -70,7 +70,7 @@ jobs:
           format: "table"
           debug: false
           fail_build: true
-  
+
   Veracode_Policy_Scan:
     name: Veracode Policy Scan
     runs-on: ubuntu-latest
@@ -105,11 +105,11 @@ jobs:
         uses: actions/download-artifact@v3  # download do verademo.war para ser usado
         with:
           name: verademo.war
-          path: /tmp
+          path: .
       - name: Veracode Pipeline Scan
         run: |
           java -jar /opt/veracode/pipeline-scan.jar \   
               -vid ${{ secrets.VID }}   \
               -vkey ${{ secrets.VKEY }} \
-              --file /tmp/verademo.war \
+              --file target/verademo.war \
               --policy_name Veracode Recommended High + SCA
