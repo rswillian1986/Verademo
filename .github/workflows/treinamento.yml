@@ -30,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
           name: verademo.war
-          path: /target/verademo.war
+          path: .
   
   Veracode_Software_Composition_Analisys:
     runs-on: ubuntu-latest
