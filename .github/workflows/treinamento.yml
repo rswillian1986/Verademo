@@ -81,7 +81,7 @@ jobs:
         uses: actions/download-artifact@v3 # realiza o download do verademo.war
         with:
           name: verademo.war
-          path: .
+          path: target/verademo.war
       - name: Veracode Policy Scan
         uses: veracode/veracode-uploadandscan-action@0.2.4 # usa o plugin oficial da veracode para executar o scan
         with:
