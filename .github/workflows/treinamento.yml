@@ -52,3 +52,21 @@ jobs:
           vid: '${{ secrets.VID }}' # credencial api
           vkey: '${{ secrets.VKEY }}' # credencial api
           deleteincompletescan: 2     # se tiver um scan travado ele apaga e inicia um novo
+
+  Veracode_Pipeline_Scan:
+    name: Veracode Pipeline Scan
+    runs-on: ubuntu-latest
+    needs: [Veracode_Policy_Scan] # executa apenas após o job do Policy Scan concluir
+    container: 
+      image: veracode/pipeline-scan:latest  # utiliza o container oficial da Veracode para realizar o Pipeline Scan
+      options: --user root # utiliza o container com usuario root para não ter restrição
+    steps:
+      - uses: actions/checkout@v2
+      - name: get archive
+        uses: actions/download-artifact@v3  # download do verademo.war para ser usado
+        with:
+          name: verademo.war
+          path: .
+      - name: Veracode Pipeline Scan
+        run: |
+          java -jar /opt/veracode/pipeline-scan.jar -vid ${{ secrets.VID }} -vkey ${{ secrets.VKEY }} -f target/verademo.war -pn "Veracode Recommended High"
