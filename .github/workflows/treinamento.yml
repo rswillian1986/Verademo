@@ -52,5 +52,5 @@ jobs:
           vid: '${{ secrets.VID }}' # credencial api
           vkey: '${{ secrets.VKEY }}' # credencial api
           deleteincompletescan: 2     # se tiver um scan travado ele apaga e inicia um novo
-
+ 
         
