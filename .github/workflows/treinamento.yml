@@ -1,4 +1,4 @@
-name: Veracode Scan
+name: Veracode Scan 
 
 #será executada sempre que houver uma nova atualização na branch-treinamento1
 on:
